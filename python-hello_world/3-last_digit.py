@@ -4,11 +4,12 @@ import random
 number = random.randint(-10000, 10000)
 last_digit = abs(number) % 10
 
-if number < 0 and number != 0:
-    sign = '-'
+if number < 0:
+    last_digit = last_digit
 else:
     sign = ''
-print('last digit of {} is {}{} '.format(number, sign, last_digit, end=""))
+
+print('Last digit of {} is {}{} '.format(number, last_digit), end=" ")
 
 if last_digit > 5:
     print('and is greater than 5')
