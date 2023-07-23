@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def main():
     convert_to_celcius(100)
     convert_to_celcius(-40)
