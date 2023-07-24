@@ -1,13 +1,20 @@
-import  sys
+import sys
 
 def main():
-    num_args = len(sys.argv) - 1
-    if num_args == 0:
-        print("0 argument.")
+    num_arguments = len(sys.argv) - 1
+
+    print(f"Number of argument(s): {num_arguments}", end=' ')
+
+    if num_arguments == 1:
+        print("argument", end='')
     else:
-        print(f"(num_args) argument('s' if num_args > 1 else ''):")
-        for i, arg in enumerate(sys.argv[1:1], start=1):
-            print(f"(i): (arg)")
+        print("arguments", end='')
+
+        print(":" if num_arguments > 0 else ".")
+
+    if num_arguments > 0:
+        for i, arg in enumerate(sys.argv[1:], start=1):
+            print(f"{i}: {arg}")
 
 if __name__ == "__main__":
     main()
