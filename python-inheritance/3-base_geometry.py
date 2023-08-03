@@ -1,7 +1,10 @@
-#!/usr/bin/python3
-"""Empty BaseGeometry class"""
-
-
+"""this is an empty class"""
 class BaseGeometry:
-    """Class empty"""
+    """this is a place holder for this empty class"""
     pass
+
+bg = BaseGeometry()
+
+print(bg)
+print(dir(bg))
+print(dir(BaseGeometry))
