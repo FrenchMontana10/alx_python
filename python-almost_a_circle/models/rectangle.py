@@ -1,87 +1,64 @@
-# models/rectangle.py
-
-class Base:
-    """This class will be the base of all other classes in the project.
-    
-    It manages the id attribute for all future classes and avoids duplicating code.
-    """
-
-    # Private class attribute to keep track of the number of objects created
-    __nb_objects = 0
-    
-    def __init__(self, id=None):
-        """Constructor for the Base class.
-
-        Args:
-            id (int, optional): The ID for the instance. Defaults to None.
-        """
-        if id is not None:
-            # If an id is provided, assign it to the instance's id attribute
-            self.id = id
-        else:
-            # If no id is provided, increment __nb_objects and assign the new value to id
-            Base.__nb_objects += 1
-            self.id = Base.__nb_objects
-
+""" we import the base class"""
+from .base import Base
+"""this is definition of class Rectangle"""
 class Rectangle(Base):
-    """This class inherits from the Base class and represents a rectangle.
-    """
-    
+    """here we have the constructor of the Rectangle Class"""
     def __init__(self, width, height, x=0, y=0, id=None):
-        """Constructor for the Rectangle class.
-
-        Args:
-            width (int): The width of the rectangle.
-            height (int): The height of the rectangle.
-            x (int, optional): The x-coordinate. Defaults to 0.
-            y (int, optional): The y-coordinate. Defaults to 0.
-            id (int, optional): The ID for the instance. Defaults to None.
-        """
-        super().__init__(id)
-        self.width = width
-        self.height = height
-        self.x = x
-        self.y = y
+        self.__width = self.__validate_integer_positive("width", width)
+        self.__height = self.__validate_integer_positive("height", height)
+        self.__x = self.__validate_integer_nonnegative("x", x)
+        self.__y = self.__validate_integer_nonnegative("y", y)
         
-    @property
-    def width(self):
+        
+        
+    """ 
+    This the 
+    Getter  for width specifies
+    the getter method for the Rectangle class
+    """
+    def get_width(self):
         return self.__width
     
-    @width.setter
-    def width(self, value):
-        self.__width = value
     
-    @property
-    def height(self):
+    """setter for width"""
+    def set_width(self, width):
+        if width > 0:
+            self.__width = width
+    
+    """Getter  for height"""
+    def get_height(self):
         return self.__height
+    """setter for width"""
+    def set_height(self, height):
+        if height > 0:
+            self.__height = height
     
-    @height.setter
-    def height(self, value):
-        self.__height = value
-    
-    @property
-    def x(self):
+    """Getter  for x"""
+    def get_x(self):
         return self.__x
+    """setter for x"""
+    def set_x(self, x):
+        self.__x = x
     
-    @x.setter
-    def x(self, value):
-        self.__x = value
-    
-    @property
-    def y(self):
+    """Getter for y"""
+    def get_y(self):
         return self.__y
-    
-    @y.setter
-    def y(self, value):
-        self.__y = value
+    """setter for y"""
+    def set_y(self, y):
+        self.__y = y
+        
+        """the validator methods are here"""
 
-if __name__ == "__main__":
+    def __validate_integer_positive(self, name, value):
+        if not isinstance(value, int):
+            raise TypeError(f"{name} must be an integer")
+        if value <= 0:
+            raise ValueError(f"{name} must be > 0")
+        return value
 
-    r1 = Rectangle(10, 2)
-    print(r1.id)
-
-    r2 = Rectangle(2, 10)
-    print(r2.id)
-
-    r3 = Rectangle(10, 2, 0, 0, 12)
-    print(r3.id)
+    def __validate_integer_nonnegative(self, name, value):
+        if not isinstance(value, int):
+            raise TypeError(f"{name} must be an integer")
+        if value < 0:
+            raise ValueError(f"{name} must be >= 0")
+        return value
