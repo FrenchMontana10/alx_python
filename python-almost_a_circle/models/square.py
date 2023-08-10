@@ -59,3 +59,4 @@ if __name__ == "__main__":
     s3.display()
     print(s3)
     print(s3.area())
+    
