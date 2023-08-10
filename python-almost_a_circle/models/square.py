@@ -1,8 +1,5 @@
 #!/usr/bin/python3
-"""
-9-main
-This script demonstrates the use of the Square class.
-"""
+""" Combined Code """
 
 class Base:
     """This class will be the base of all other classes in the project.
@@ -47,44 +44,39 @@ class Rectangle(Base):
         self.x = x
         self.y = y
         
-    @property
-    def width(self):
-        return self.__width
+    def area(self):
+        """Calculate and return the area of the rectangle."""
+        return self.width * self.height
     
-    @width.setter
-    def width(self, value):
-        self.__width = value
+    def display(self):
+        """Display the rectangle using # characters."""
+        for _ in range(self.y):
+            print()
+        for _ in range(self.height):
+            print(" " * self.x + "#" * self.width)
     
-    @property
-    def height(self):
-        return self.__height
+    def update(self, *args, **kwargs):
+        """Update attributes based on arguments."""
+        if args:
+            attributes = ["id", "width", "height", "x", "y"]
+            for index, value in enumerate(args):
+                if index < len(attributes):
+                    setattr(self, attributes[index], value)
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
     
-    @height.setter
-    def height(self, value):
-        self.__height = value
-    
-    @property
-    def x(self):
-        return self.__x
-    
-    @x.setter
-    def x(self, value):
-        self.__x = value
-    
-    @property
-    def y(self):
-        return self.__y
-    
-    @y.setter
-    def y(self, value):
-        self.__y = value
+    def __str__(self):
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(
+            self.id, self.x, self.y, self.width, self.height
+        )
 
 class Square(Rectangle):
-    """This class inherits from the Rectangle class and represents a square.
+    """This class inherits from Rectangle and represents a square.
     """
     
     def __init__(self, size, x=0, y=0, id=None):
-        """Constructor for the Square class.
+        """Constructor for Square class.
 
         Args:
             size (int): The size of the square.
@@ -93,28 +85,41 @@ class Square(Rectangle):
             id (int, optional): The ID for the instance. Defaults to None.
         """
         super().__init__(size, size, x, y, id)
-    
+        
     def __str__(self):
-        """Overloaded __str__ method to represent the Square object as a string."""
-        return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y, self.width)
+        return "[Square] ({}) {}/{} - {}".format(
+            self.id, self.x, self.y, self.width
+        )
 
+# Example usage
 if __name__ == "__main__":
-    # Creating Square instances and testing methods
+    r1 = Rectangle(4, 6)
+    r1.display()
+    print(r1)
+
+    print("---")
+
+    r2 = Rectangle(2, 2)
+    r2.display()
+    print(r2)
+
+    print("---")
+
     s1 = Square(5)
+    s1.display()
     print(s1)
     print(s1.area())
-    s1.display()
 
     print("---")
 
     s2 = Square(2, 2)
+    s2.display()
     print(s2)
     print(s2.area())
-    s2.display()
 
     print("---")
 
     s3 = Square(3, 1, 3)
+    s3.display()
     print(s3)
     print(s3.area())
-    s3.display()
