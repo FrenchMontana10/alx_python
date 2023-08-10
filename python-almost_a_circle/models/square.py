@@ -24,7 +24,16 @@ class Rectangle(Base):
         self.x = x
         self.y = y
 
-    # Other methods of Rectangle class...
+    def area(self):
+        """ Calculate the area of the rectangle """
+        return self.width * self.height
+
+    def display(self):
+        """ Display the rectangle using '#' """
+        for _ in range(self.y):
+            print()
+        for _ in range(self.height):
+            print(' ' * self.x + '#' * self.width)
 
 class Square(Rectangle):
     """ Square class """
@@ -32,8 +41,6 @@ class Square(Rectangle):
     def __init__(self, size, x=0, y=0, id=None):
         """ Initialize instance attributes """
         super().__init__(size, size, x, y, id)
-
-    # Other methods of Square class...
 
 if __name__ == "__main__":
 
