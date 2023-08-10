@@ -44,32 +44,38 @@ class Rectangle(Base):
         self.x = x
         self.y = y
         
-    # ... (previous methods and properties)
-    
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """Update attributes based on arguments."""
-        attributes = ["id", "width", "height", "x", "y"]
-        for index, value in enumerate(args):
-            if index < len(attributes):
-                setattr(self, attributes[index], value)
+        if args:
+            attributes = ["id", "width", "height", "x", "y"]
+            for index, value in enumerate(args):
+                if index < len(attributes):
+                    setattr(self, attributes[index], value)
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
     
-    # ... (previous methods and properties)
+    def __str__(self):
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(
+            self.id, self.x, self.y, self.width, self.height
+        )
+    
+    # ... (other methods and properties)
+
+# ... (other parts of the code)
 
 if __name__ == "__main__":
     r1 = Rectangle(10, 10, 10, 10)
     print(r1)
 
-    r1.update(12)
+    r1.update(height=1)
     print(r1)
 
-    r1.update(12, 4)
+    r1.update(width=1, x=2)
     print(r1)
 
-    r1.update(12, 4, 3)
+    r1.update(y=1, width=2, x=3, id=89)
     print(r1)
 
-    r1.update(12, 4, 3, 2)
-    print(r1)
-
-    r1.update(12, 4, 3, 2, 1)
+    r1.update(x=1, height=2, y=3, width=4)
     print(r1)
