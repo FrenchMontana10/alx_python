@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 4-main """
+""" 5-main """
 
 class Base:
     """This class will be the base of all other classes in the project.
@@ -100,13 +100,16 @@ class Rectangle(Base):
         """Display the Rectangle using '#' characters."""
         for _ in range(self.__height):
             print("#" * self.__width)
+    
+    def __str__(self):
+        """Return a string representation of the Rectangle."""
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(
+            self.id, self.__x, self.__y, self.__width, self.__height)
 
 if __name__ == "__main__":
 
-    r1 = Rectangle(4, 6)
-    r1.display()
+    r1 = Rectangle(4, 6, 2, 1, 12)
+    print(r1)
 
-    print("---")
-
-    r2 = Rectangle(2, 2)
-    r2.display()
+    r2 = Rectangle(5, 5, 1)
+    print(r2)
