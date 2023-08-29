@@ -16,9 +16,9 @@ def c(text):
     text = unquote(text.replace("_", " "))
     return 'C {}'.format(text)
 
-@app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
-@app.route('/python/<text>', strict_slashes=False)
-def python(text):
+@app.route('/python/', strict_slashes=False)
+@app.route('/python/<path:text>', strict_slashes=False)
+def python(text='is cool'):
     text = unquote(text.replace("_", " "))
     return 'Python {}'.format(text)
 
