@@ -27,3 +27,12 @@ if __name__ == "__main__":
 
     with open("todo_all_employees.json", mode='w') as file:
         json.dump(data, file)
+
+    # Check if all users exist in output
+    all_users_exist = all(user_id in data for user_id in map(str, range(1, 11)))
+
+    # Check if all tasks are assigned to the correct user IDs
+    tasks_assigned_correctly = all(all(task['username'] == users[user_id - 1]['username'] for task in data[str(user_id)]) for user_id in range(1, 11))
+
+    print(f"All users exist in output: {all_users_exist}")
+    print(f"All tasks assigned correctly: {tasks_assigned_correctly}")
