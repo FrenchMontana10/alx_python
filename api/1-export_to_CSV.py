@@ -1,24 +1,18 @@
-import sys
 import csv
-
-# Assuming you have a list of tasks in this format: [USER_ID, USERNAME, TASK_COMPLETED_STATUS, TASK_TITLE]
-# For example, tasks = [[2, "Antonette", False, "suscipit repellat esse quibusdam voluptatem incidunt"], ...]
-
-def export_to_csv(user_id, tasks):
-    filename = f"{user_id}.csv"
-
-    with open(filename, mode='w', newline='') as file:
-        writer = csv.writer(file, quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-
-        for task in tasks:
-            writer.writerow(task)
+import requests
+from sys import argv
 
 if __name__ == "__main__":
-    user_id = int(sys.argv[1])  # Assuming the user_id is provided as a command line argument
-    # Fetch tasks for the given user_id and store them in a list
+    user_id = argv[1]
 
-    # Assuming tasks is a list of lists, where each inner list represents a task
-    # For example, tasks = [[2, "Antonette", False, "suscipit repellat esse quibusdam voluptatem incidunt"], ...]
+    url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
+    response = requests.get(url)
+    user = response.json()
 
-    export_to_csv(user_id, tasks)
+    url = f"https://jsonplaceholder.typicode.com/todos?userId={user_id}"
+    response = requests.get(url)
+    tasks = response.json()
+
+    with open(f"{user_id}.csv", mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows([[user_id, user['username'], str(task['completed']), task['title']] for task in tasks])
